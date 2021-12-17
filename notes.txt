@@ -1,0 +1,402 @@
+1. Adding component
+
+    1. >Add folder 'components' >Header.js
+
+    Header.js
+    import React from "react";
+
+    function Header(){
+
+        return(
+            <div>
+                <h1>Header component</h1>
+                <h1>Learn code with sagar</h1>
+                <p>adding header component for testing purpose</p>
+            </div>
+        );
+    }
+
+    export default Header;
+
+    2. Calling component
+    To call the component, we need first the export the component, so that it can be accessible into another file.
+    So, we wil call Header.js component into App.js using  '<Header />'
+
+    App.js
+    import './App.css';
+
+    import Header from "./components/Header";
+
+    function App() {
+    return (
+        <>
+        <Header /> //To call the component we need to use its fileName.
+        <hr/>
+        <Header />
+        <hr/>
+        <Header />
+        </>
+    );
+    }
+
+    export default App;
+
+    Note: Similarlly we can can this component any number of the times, hence called 'Reusable component'.
+
+    3. Adding css to div using style tag.
+    <div style={ { color: "blue" } }>
+
+    i.e 1. The first bracket means { } we are writing the object.
+        2. The second bracket means { } we need to create one more object to call it. i.e color: "blue"
+
+    Note: Now style = "" is not HTML here, here it is pure javascript i.e we are 'writing HTML into Javascript'.
+    As this is object, so it has key value pair.
+    -->     key: color and value: "blue"
+
+    e.g 2: <div style={ { background: "yellow", padding: 10 } }>
+
+
+2. what is props?
+    --> The props means simply properties i.e passing dynamic values.
+    <Header name="Java" title="first card">, here we have passed the values i.e 'Java & first card', they are called 'Props'.
+    --> we can use this 'Props' when we are calling one component from other component. 
+        But this properties cannot be changed i.e we can just use it.
+    
+    Props are Immutable, once they are created they Cannot be changed.
+
+    Existing: 
+        Header.js
+            import React from "react";
+
+            function Header(){
+
+                return(
+                    <div>
+                        <h1>Header component</h1>
+                        <h1>Learn code in </h1>
+                        <p>adding header component for testing purpose</p>
+                    </div>
+                );
+            }
+
+            export default Header;
+        
+        App.js
+        import './App.css';
+        import Header from "./components/Header";
+
+        function App() {
+        return (
+                <div>
+                <Header />
+                <hr />
+                <Header />
+                <hr />
+                <h1>Header component</h1>
+                <h1>Learn code in </h1>
+                <p>adding header component for testing purpose</p>
+                <Header />
+
+                </div>
+            );
+        }
+        export default App;
+
+
+    --> Now Suppose you want pass different value from App.js on each component.
+        example you want to pass different value for <h1> tag, we want that we have to change the name when we will call the component.
+        1. Learn code in Java
+        2. Learn code in React
+        3. Learn code in Angular
+
+    --> 
+    1. To do this, come to 'Header.js' pass some different name in <Header /> every time using 'name' property.
+    function App() {
+    return (
+        <>
+        <div>
+            <Header name="Java"/>
+            <hr />
+
+            <Header name="React" />
+            <hr />
+
+            <h1>Header component</h1>
+            <p>adding header component for testing purpose</p>
+
+            <hr/>
+            <Header name="Angular" />
+        </div>
+        </>
+    );
+    }
+
+    2. Pass this name property into Header.js i.e Header().
+    So, in Header() we have to do 'object destructuring' i.e Header( { })
+
+    Header.js
+    import React from "react";
+
+    function Header({ name }) {
+
+        return (
+            <div>
+                <h1>Header component</h1>
+                <h1>Learn code in {name} </h1> //here bracket { } is used for String interpolation
+                <p>adding header component for testing purpose</p>
+            </div>
+        );
+    }
+
+    export default Header;
+
+    Explanation: 
+    The <Header name="Java"/> is like a function
+    i.e Suppose you have passed function 'Header' and name="Java" is like a parameter.
+    
+    So, name="Java" is an Actual parameter 
+    and we have passed it in function Header({ name }) i.e name is a 'Formal parameter', so this value come here in parameter and 
+    finally we have used it in <h1>Learn code in {name} </h1> 
+
+    output:
+    Header component
+    Learn code in Java
+    adding header component for testing purpose
+
+    Header component
+    Learn code in React
+    adding header component for testing purpose
+
+    Header component
+    adding header component for testing purpose
+
+    Header component
+    Learn code in Angular
+    adding header component for testing purpose
+
+
+    ----------------------------------------------------------
+
+    Similarlly, we can add Title to the component and pass it dynamically.
+
+    App.js
+    function App() {
+    return (
+        <>
+        <div>
+            <Header name="Java" title="first card"/>
+            <hr />
+            <Header name="React" title="second card" />
+            <hr />
+            <h1>Header component</h1>
+            <p>adding header component for testing purpose</p>
+            <hr/>
+            <Header name="Angular" title="last card" />
+        </div>
+        </>
+    );
+    }
+
+    Header.js
+    function Header({ name, title }) {
+
+        return (
+        <div style={ {background: "yellow", padding: 10, width: 500}}>
+            <h1>Header component</h1>
+            <h1>Learn code in {name} </h1>
+            <h3>adding title: {title}</h3>
+            <p>adding header component for testing purpose</p>
+        </div>
+    );
+    }
+
+
+    output:
+    Header component
+    Learn code in Java
+    adding title: first card
+    adding header component for testing purpose
+
+    Header component
+    Learn code in React
+    adding title: second card
+    adding header component for testing purpose
+
+    Header component
+    adding header component for testing purpose
+
+    Header component
+    Learn code in Angular
+    adding title: last card
+    adding header component for testing purpose
+
+
+Q. What do you mean by 'States' in React? Difference between States and Props.
+
+--> States can be defined in the function, States mean 'data of respective component'.
+    States are used to store data of its own component, 
+    while Props are passed from different components so that two components can communicate with each other, so that component can pass some value.
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Adding Dependencies.
+
+1. Bootstrap
+    To use Bootstrap, we need to library called 'reactstrap'. The reactstrap is Bootstrap version for React.
+
+    --> https://reactstrap.github.io/
+    --> npm install bootstrap reactstrap
+    --> Import Bootstrap CSS in the src/index.js file:
+        import 'bootstrap/dist/css/bootstrap.min.css';
+    
+    --> display Button on index page
+    App.js
+    import './App.css';
+    import { Button } from 'reactstrap';
+
+    function App() {
+    return (
+        <div>
+            <h1>This is bootstrap component</h1>
+            <Button color="warning">First React Button</Button>
+        </div>
+    );
+    }
+
+    export default App;
+
+
+2. Install React toastify notification 
+    https://github.com/fkhadra/react-toastify
+
+    --> npm install react-toastify
+    --> Add css in index.js
+        import 'react-toastify/dist/ReactToastify.css';
+    --> Now come to App.js and add its import.
+        import { ToastContainer, toast } from 'react-toastify';
+    --> Now ToastContainer we have to keep it first on Top.
+        So, with the help of ToastContainer we are able to see the messages.
+
+        App.js
+        import './App.css';
+        import { Button } from 'reactstrap';
+        import { toast, ToastContainer } from 'react-toastify';
+
+        function App() {
+
+        //2. Defining function, As soon user clicks on button
+        const btnHandle = () => {
+            toast("This is my first message");
+        };
+
+        return (
+            <div>
+
+            <ToastContainer />
+            <h1>This is bootstrap component</h1>
+            <Button color="warning" onClick={btnHandle}>
+                First React Button
+            </Button>
+            
+            </div>
+        );
+        }
+
+        export default App;
+
+--> Getting Green color notification
+  const btnHandle = () => {
+    toast.success("done");
+  };
+
+--> Getting error  with top-center position
+  const btnHandle = () => {
+    toast.error("error occured", {
+      position: 'top-center',
+    });
+  };
+
+
+  3. Adding Dependencies: Axios
+    --> With Axios you can call the server.
+    --> This library is use to call web-service using React
+
+    --> npm install axios
+
+
+---------------------------------------------------------------------------------------
+
+Making components
+
+1. Home component
+    Home.js
+    import React from "react";
+
+    const Home = () => {
+        return (
+            <div>
+
+            </div>
+        );
+
+    };
+
+    export default Home;
+
+--> Adding jumbotron
+    
+    import React from "react";
+    import { Container, Jumbotron, Button } from 'reactstrap';
+
+    const Home = () => {
+        return (
+            <div>
+                <Jumbotron className="text-center">
+                    <h1 className="display-3">Learning React</h1>
+                    <p>Hello students welcome to the course.</p>
+
+                    <Container >
+                        <Button color="success" outline>Start React</Button>
+                    </Container>
+                </Jumbotron>
+            </div>
+        );
+
+    };
+
+    export default Home;
+
+
+2. Making single course component
+    Hint: Use Bootstrap card
+
+    Course.js
+    import React from "react";
+
+    import { Card,CardBody,CardTitle,CardSubtitle,CardText,CardFooter,Container, Button } from "reactstrap";
+
+    const Course=()=>{
+        return(
+            <div>
+                <Card className="text-center">
+                    <CardBody>
+                        <CardSubtitle className="font-weight-bold" >Java Course</CardSubtitle>
+                        <CardText>It is a java course for beginners</CardText>
+                        <Container >
+                            <Button color="warning">Update</Button>
+                            <Button color="danger ml-2">Delete</Button>
+                        </Container>
+                    </CardBody>
+                </Card>
+            </div>
+        );
+    }
+
+    export default Course;
+
+    //making title and description dynamic
+    
+    
